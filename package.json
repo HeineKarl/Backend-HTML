@@ -1,0 +1,22 @@
+{
+  "name": "cases",
+  "version": "1.0.0",
+  "description": "I don't know what to do",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Karl",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.4",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
