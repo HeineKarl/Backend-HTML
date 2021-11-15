@@ -1,21 +1,39 @@
 const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
-
-
+const path = require('path')
+const cons = require('consolidate');
 
 const app = express()
 
+// Environment Variable
 dotenv.config({ path: 'config.env' })
 
-
+// Middlewares
 app.use(cors())
 app.use(express.json())
 
+// to Access the html attribute name
+app.use(express.urlencoded({extended: false}))
 
-const cases = require('./routes')
 
-app.use('/api/cases', cases )
+
+// View engine setup
+app.engine('html', cons.swig)
+app.set('views', path.join(__dirname, 'views'));
+app.set('view-engine', 'html');
+
+
+
+// Rendering Authentication
+const admin= require('./controller/renderAdmin')
+app.use('/', admin)
+
+
+
+// Dashboard adding cases
+const cases = require('./controller/routes')
+app.use('/', cases )
 
 
 

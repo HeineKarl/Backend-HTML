@@ -3,8 +3,9 @@ const mongodb = require('mongodb')
 const router = express.Router()
 
 //  Get Post
-router.get('/', async (req, res) => {
+router.get('/dashboard', async (req, res) => {
 	try {
+    res.render('dashboard.html')
 		const posts = await database()
 		res.send(await posts.find({}).toArray())
 	} catch (err) {
@@ -14,13 +15,13 @@ router.get('/', async (req, res) => {
 
 //  Add Post
 
-router.post('/', async (req, res) => {
+router.post('/dashboard', async (req, res) => {
 	try {
 		const posts = await database()
 		await posts.insertOne({
             date: new Date(),
             brgy: req.body.brgy,
-            numCases: req.body.numCases,
+            numCases: req.body.cases,
             recoveries: req.body.recoveries,
             death: req.body.death,
             suspected: req.body.suspected,
@@ -44,7 +45,7 @@ router.post('/', async (req, res) => {
 // // })
 
 // Update Post
-router.put('/:id', async (req, res) => {
+router.put('/dashboard/:id', async (req, res) => {
   try {
     const posts = await database()
     await posts.updateOne(
@@ -53,7 +54,7 @@ router.put('/:id', async (req, res) => {
         $set: {
             date: new Date(),
             brgy: req.body.brgy,
-            numCases: req.body.numCases,
+            numCases: req.body.cases,
             recoveries: req.body.recoveries,
             death: req.body.death,
             suspected: req.body.suspected,
@@ -72,7 +73,7 @@ async function database() {
 		useNewUrlParser: true
 	})
 
-	return client.db('cases').collection('cases')
+	return client.db('users').collection('cases')
 }
 
 module.exports = router
